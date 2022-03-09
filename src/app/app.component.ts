@@ -1,9 +1,20 @@
 import { Component } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-root',
-  template: `<div>Hello, {{value}}</div>`,
+  template: `<div>{{message}}</div>`,
 })
+
+//export class AppComponent {
+//  value = 'Welcome to FTA Live Session!';
+//}
+
 export class AppComponent {
-  value = 'Welcome to FTA Live Session!';
+  message = '';
+
+  constructor(private http: HttpClient) {
+    this.http.get('/api/message')
+      .subscribe((resp: any) => this.message = resp.text);
+  }
 }
